@@ -125,7 +125,7 @@ label.checkbox-label input {opacity: 0;}
 	background:white
 ;right: 32px;}
 
-li#toplevel_page_fot_options .wp-menu-name {font-family: 'Almarai';background: #4caf50;}
+li#toplevel_page_fot_options .wp-menu-name {background: #4caf50;color: #fff !important;}
 
 note span {display: block;background: #ffffff;padding: 2px 8px;border-radius: 5px;border: 1px solid #dedede;color: #000;font-style: normal;font-size: 10px;}
 
