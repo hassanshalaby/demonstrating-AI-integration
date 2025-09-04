@@ -4,8 +4,25 @@ namespace AIintegration\Components\Helpers;
 
     public function helpers__construct(){
         add_action( 'admin_enqueue_scripts',array( $this, 'enqueue_admin_scripts' ));
+        add_filter('the_content',array($this,'summary_content'));
     }
 
+
+      // Showing Summary Ai after the content
+
+      public function summary_content(){
+          ob_start();
+
+          echo '<div class="custom-section" style="padding:10px; background-color:#f7f7f7;border-radius:5px">';
+          echo  '<h3>AI Summary</h3>';
+          echo  '<p>'.esc_html( get_post_meta(get_the_ID(),'generated_text',true) ).'</p>';
+          echo '</div>';
+          $custom_section = ob_get_clean();
+
+          return $content . $custom_section;
+
+      }
+          
 
     public function enqueue_admin_scripts(){
      wp_enqueue_style('ai-defult-css', DAI_URI . 'assets/css/ai.css',[],'1.0.0');
