@@ -5,11 +5,11 @@
     Author: Hassan Mohammad
     Author URI: https://wa.me/201061237563
     Version: 1.1
-    Requires at least: 7.0
+    Requires at least: 6.6
+    Requires PHP: 7.4
     License: GPLv2 or later
     Text Domain: demonstrating-ai-integration
 */
-
     
 // Strict types for better type safety
 declare(strict_types=1);
@@ -164,4 +164,5 @@ final class PluginBootstrap {
 }
 
 // Initialize plugin
+
  PluginBootstrap::get_instance();
