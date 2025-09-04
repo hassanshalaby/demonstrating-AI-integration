@@ -4,25 +4,25 @@ namespace AIintegration\Components\Helpers;
 
     public function helpers__construct(){
         add_action( 'admin_enqueue_scripts',array( $this, 'enqueue_admin_scripts' ));
-        add_filter('the_content',array($this,'summary_content'));
+        add_filter( 'the_content', [ $this, 'summary_content' ], 10, 1 );
     }
 
+    public function summary_content( $content ) {
+        if ( ! is_singular() || ! in_the_loop() || ! is_main_query() ) {
+            return $content;
+        }
 
-      // Showing Summary Ai after the content
+        $generated = get_post_meta( get_the_ID(), 'generated_text', true );
 
-      public function summary_content(){
-          ob_start();
-
-          echo '<div class="custom-section" style="padding:10px; background-color:#f7f7f7;border-radius:5px">';
-          echo  '<h3>AI Summary</h3>';
-          echo  '<p>'.esc_html( get_post_meta(get_the_ID(),'generated_text',true) ).'</p>';
-          echo '</div>';
-          $custom_section = ob_get_clean();
-
-          return $content . $custom_section;
-
+      if ( empty( $generated ) ) {
+            return $content;
       }
-          
+        $custom_section  = '<div class="custom-section" style="padding:10px; background-color:#f7f7f7; border-radius:5px">';
+        $custom_section .= '<h3>AI Summary</h3>';
+        $custom_section .= '<p>' . esc_html( $generated ) . '</p>';
+        $custom_section .= '</div>';
+        return $content . $custom_section;
+    }
 
     public function enqueue_admin_scripts(){
      wp_enqueue_style('ai-defult-css', DAI_URI . 'assets/css/ai.css',[],'1.0.0');
